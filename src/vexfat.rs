@@ -1,7 +1,7 @@
 use std::{
     collections::HashMap,
     fs,
-    io::{self, Read, Seek, Write}, path::MAIN_SEPARATOR_STR,
+    io::{self, Read, Seek}, path::MAIN_SEPARATOR_STR,
 };
 
 use vexfatbd::VirtualExFatBlockDevice;

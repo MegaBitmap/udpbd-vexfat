@@ -1,6 +1,6 @@
 use std::{
     mem::size_of,
-    net::{IpAddr, Ipv4Addr, SocketAddr, UdpSocket},
+    net::{IpAddr, Ipv4Addr, SocketAddr, UdpSocket}, thread, time::Duration,
 };
 
 use anyhow::Context;
@@ -44,6 +44,7 @@ impl Server {
     }
 
     pub fn run(&mut self) {
+        let mut wait_network: bool = true;
         let mut buf = [0u8; UDP_MAX_PAYLOAD];
         println!("Server running on port {}", UDPBD_PORT);
 
@@ -54,6 +55,12 @@ impl Server {
                 ($type:ty) => {
                     bytemuck::from_bytes::<$type>(&buf[..size_of::<$type>()])
                 };
+            }
+
+            if wait_network {
+                wait_network = false;
+                println!("Waiting for the network to fully initialize . . .");
+                thread::sleep(Duration::from_millis(4000));
             }
 
             let header = cast_buffer_as!(Header);
