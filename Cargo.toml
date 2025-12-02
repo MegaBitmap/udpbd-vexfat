@@ -17,6 +17,9 @@ walkdir = "^2.3.3"
 num-traits = "^0.2.15"
 itertools = "^0.10.5"
 
+[lib]
+crate-type = ["cdylib"]
+
 [profile.release]
 overflow-checks = true
 strip = "symbols"
